@@ -33,7 +33,7 @@ Temos fazer o FastDbgPHP ser o mais simples possível, mas o mais personalizáve
 
 ## Utilização:
 
-Para usar a biblioteca no seu projeto é necessário chamar-la `require_once "../fastdDbgPHP.class.php";`, setar a variável `$isDev` do seu projeto através da linha de códiogo `FastDbgPHP::setDevelopmentMode($isDev);`, obviamente definida com `true` e sair utilizando a função `dbug();` para apresentar as variáveis que desejar.
+Para usar a biblioteca no seu projeto é necessário chamar-la `require_once "../fastdDbgPHP.class.php";`, setar a variável `$isDev` do seu projeto através da linha de códiogo `FastDbgPHP::setDevelopmentMode($isDev);`, obviamente definida com `true` e sair utilizando a função `dbg();` para apresentar as variáveis que desejar.
 
 ```php
 $isDev = true;
