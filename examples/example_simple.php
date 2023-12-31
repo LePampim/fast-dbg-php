@@ -2,7 +2,7 @@
 
 $isDev = true;
 
-require_once "../fastdDbgPHP.class.php";
+require_once "../fastDbgPHP.class.php";
 
 // FastDbgPHP Configuration
 FastDbgPHP::setDevelopmentMode($isDev);
