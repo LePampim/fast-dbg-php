@@ -166,7 +166,7 @@ class FastDbgPHP
 
             $LePampim = '<a href ="https://github.com/LePampim" >LePampim</a>';
             $Mocno = '<a href ="https://github.com/mocno" >Mocno</a>';
-            $fastDbgPHP = '<a href ="https://github.com/mocno" >Fast Debug PHP</a>';
+            $fastDbgPHP = '<a href ="https://github.com/LePampim/FastdbgPHP" >Fast Debug PHP</a>';
             static::generateRowCredit("$fastDbgPHP developed by $LePampim and $Mocno");
 
             echo "</div>";
