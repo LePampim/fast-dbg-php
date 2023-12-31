@@ -50,7 +50,7 @@ Quantas vezes não precisar parar o código para podemos visuaizar o status da v
 
 ## Palavras Chaves
 
-### `##GET` ou `##POST`
+### `##GET` e `##POST`
 
 ```php
 dbg('##GET', '##POST');
