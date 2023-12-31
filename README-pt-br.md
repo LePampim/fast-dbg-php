@@ -1,15 +1,14 @@
 # FastDbgPHP
 Biblioteca para auxiliar na depuração no PHP.
-Usuário do PHP a mais de uma decada de forma não profissional nunca gostei de usar no nosso velho conhecido `var_dump`, então, resolvemos (Eu, e Mocno) brincar um pouco no PHP e criar essa biblioteca para auxiliar na hora da depuração dos códigos.
+Usuário do PHP a mais de uma decada de forma não profissional nunca gostei de usar no nosso velho conhecido `var_dump`, então, resolvemos (Eu e Mocno) brincar um pouco no PHP e criar essa biblioteca para auxiliar na hora da depuração dos códigos.
 
-### Exemplo:
+### Exemplo
 ```php
 $a = "Hello Word";
-$b = null;
-$c = True;
 $d = 42;
 $e = 3.14159265359;
-$f = [];
+$c = True;
+$b = null;
 $g = ["orange", "banana", "apple"];
 $h = [
     "name" => [
@@ -20,67 +19,80 @@ $h = [
     "age" => 18,
     "from" => "Brazil"
 ];
+$f = [];
 
-dbg($a, $b, $c, $d, $e, $f, $g, $h);
+fdbg($a, $b, $c, $d, $e, $f, $g, $h);
 ```
 
-![Representation of FastDbgPHP](https://github.com/LePampim/FastDbgPHP/assets/71104962/cc5f35a9-599b-4e41-9bd2-f4308d026aaf)
+<!-- Adicionar imagem -->
 
+### Usabilidade
 
-### Usabilidade:
+Um dos principais motivos para criação do projeto FastDbgPHP é simplificação no seu uso. Assim, para depurar seu código basta uma chamada da função `dbg` para criar um painel informativo sobre a variável, além disso, com as palavras chaves explicadas adiante, a depuração do seu ambiente se torna mais fácil. Por outro lado, outro ponto fundamental do projeto é a personalização, para tal as funções como `FastDbgPHP::setProjectName` e `FastDbgPHP::setStyles` foram criadas.
 
-Temos fazer o FastDbgPHP ser o mais simples possível, mas o mais personalizável também. Para a simplicidade optamos por gerar apenas um único arquivo, sem nem mesmo o .css, e para a personalização adicionamos funções que achamos mais úteis neste momento.
+## Utilização
 
-## Utilização:
-
-Para usar a biblioteca no seu projeto é necessário chamar-la `require_once "../fastDbgPHP.class.php";`, setar a variável `$isDev` do seu projeto através da linha de códiogo `FastDbgPHP::setDevelopmentMode($isDev);`, obviamente definida com `true` e sair utilizando a função `dbg();` para apresentar as variáveis que desejar.
+Para usar a esta biblioteca no seu projeto é necessário apenas a importação e a defição do estado do projeto através da função `FastDbgPHP::setDevelopmentMode`, ou seja, no caso de estar no modo de desenvolvimento defina `True`, se não, `False`. Depois isso, toda configuração basica ja foi realizada, basta depurar as variáveis de interresse, não precisa economisar, coloque quantas quiser, é sempre bom saber o que o código está fazendo.
 
 ```php
-$isDev = true;
-
+// Importando a biblioteca FastDbgPHP
 require_once "../fastDbgPHP.class.php";
+
+// Defina o modo que da página
+// no caso de estar no modo de desenvolvimento defina True, se não, False
 FastDbgPHP::setDevelopmentMode($isDev);
 
-$a = 1;
+// Por fim, simplismente depure suas variáveis
+$value = rand(1, 1000);
+$other_value = $value - 10;
 
-dbg($a);
+dbg($value, $other_value);
 ```
 
-Quantas vezes não precisar parar o código para podemos visuaizar o status da variável executando após o `php var_dump();` o comando `exit;`. No FastDbgPHP pode setar em qualquer das variaveis enviadas o termo `##EXIT` que automaticamente ao final a biblioteca executa o comando `exit;` e para a depuração.
+Não recomendamos deixar esse códigos de depuração em produção, porém, para maior segurança do seu código, apenas quando seu projeto estiver no modo de desenvolvimento a função `dbg` mostrará resultados na página.
 
-## Palavras Chaves
+Outra função importante são as palavras chave, explicadas a seguir.
 
-### `##GET` e `##POST`
+### Palavras Chaves
+
+#### Variaveis Globais: `##GET`, `##POST`, `##SERVER`,  `##FILES`, `##COOKIE`, `##SESSION`, `##REQUEST` e `##ENV`
+
+Essas palavras chaves mostram as váriaves globais `$_GET`, `$_POST`, `$_SERVER`,  `$_FILES`, `$_COOKIE`, `$_SESSION`, `$_REQUEST` e `$_ENV`, respectivamente. Simplificando a depuração e facilitando sua leitura.
 
 ```php
-dbg('##GET', '##POST');
+dbg('##GET', '##POST', '##SERVER', '##FILES', '##COOKIE', '##SESSION', '##REQUEST', '##ENV');
 ```
 
-Apresenta as variveis que vieram no modo `$_GET;` ou `$_POST;`; 
-![image](https://github.com/LePampim/FastDbgPHP/assets/71104962/9146e620-ade6-40cc-b8be-3c0859ffe0e9)
+Para maior agilidade para mostrar os dados GET e POST da página html, podesse simplimente chamar a função `dbg`, po´rem sem nenhum parâmetro, como mostrado a seguir:
+```php
+dbg();
+```
 
-Apresenta as variveis que vieram no modo `$_POST;`
+<!-- Adicionar imagem -->
 
-### `##SERVER`,  `##SERVER`, `##SERVER`, `##SERVER`, `##SERVER`, `##SERVER`
+#### `##TIME`
+
+Para verificar o tempo levado em certo código, ou qualquer outra contagem de tempo, use a palavra chave `##TIME`, que mostra o tempo entre o início da página e o momento da apresentação do `dbg('##TIME')`. Para que essa palavra chave funcione, é exencial que seja definido o tempo em unix do início da página usando a função `FastDbgPHP::setStartTime`, como mostrado no exemplo a seguir:
 
 ```php
-dbg('##SERVER', '##FILES', '##COOKIE', '##SESSION', '##REQUEST', '##ENV');
+// Pegue o tempo inicial de referencia do código, sempre deve ser aferido no começo da página
+$inicial_time = microtime(true);
+
+// Definindo o tempo inicial de referencia
+FastDbgPHP::setStartTime($inicial_time);
+
+/* O corpo do seu código */
+
+// Mostrar o tempo usado pelo código
+dbg('##TIME');
 ```
+<!-- Adicionar imagem -->
 
-Apresenta as variveis do `$_SERVER;`, `$FILES;`, `$COOKIE;`, `$SESSION;`, `$REQUEST;`, `$ENV;` respectivamentes.
+<!-- setDevelopmentMode, setProjectName, setStyles, setDefaltValues, setStartTime, setClassList -->
 
-### `#TIME`
-
-É possivel apresentar o tempo entre o inicio da pagina e o momento da apresentação do `dbg();` e para isso vc precisa apenas setar uma varível no inicio do seu código PHP.
-```php
-$start_time = microtime(true);
-```
-e depois informa-lo ao FastDbgPHP
-```php
-FastDbgPHP::setStartTime($start_time);
-```
-
-![image](https://github.com/LePampim/FastDbgPHP/assets/71104962/dc4afc57-0761-4084-a964-405b343d7732)
-
-
-
+<!-- * ##TRACE - Show traceback
+* ##EXIT - Finish the code 
+* 
+* fdbg
+* setStartTime -> setInicialTime
+-->
