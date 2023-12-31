@@ -10,7 +10,7 @@ class FastDbgPHP
     static private bool $isDevelopementMode = false;
     static private string $projectName = "";
     static private ?float $startTime = null;
-    static private array $defaltValues = ['##GET', '##POST', '##SERVER'];
+    static private array $defaltValues = ['##GET', '##POST'];
     static private array $classList = [];
     static private array $styles = [
         'box'               => 'font-family: ui-monospace, monospace;
