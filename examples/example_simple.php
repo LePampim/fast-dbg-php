@@ -24,6 +24,6 @@ $h = [
     "from" => "Brazil"
 ];
 
-dbg($a, $b, $c, $d, $e, $f, $g, $h);
+fdbg($a, $b, $c, $d, $e, $f, $g, $h);
 
-dbg();
+fdbg();

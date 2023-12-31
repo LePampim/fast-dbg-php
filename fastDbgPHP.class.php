@@ -1,8 +1,8 @@
 <?php
 
-function dbg(mixed ...$values)
+function fdbg(mixed ...$values)
 {
-    FastDbgPHP::dbg(...$values);
+    FastDbgPHP::fdbg(...$values);
 }
 
 class FastDbgPHP
@@ -95,11 +95,11 @@ class FastDbgPHP
      * ##EXIT - Finish the code
      * ##TIME
      */
-    static public function dbg(mixed ...$values): void
+    static public function fdbg(mixed ...$values): void
     {
         if (static::$isDevelopementMode) {
             if (count($values) == 0) {
-                self::dbg(...static::$defaltValues);
+                self::fdbg(...static::$defaltValues);
                 return;
             }
 

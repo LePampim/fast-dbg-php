@@ -45,7 +45,7 @@ $h = [
 ];
 $i = new Person("Maria", 19);
 
-dbg($a, $b, $c, $d, $e, $f, $g, $h, $i);
+fdbg($a, $b, $c, $d, $e, $f, $g, $h, $i);
 
-dbg();
+fdbg();
 
