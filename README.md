@@ -5,10 +5,11 @@ Usuário do PHP a mais de uma decada de forma não profissional nunca gostei de 
 ### Exemplo
 ```php
 $a = "Hello Word";
+$b = null;
+$c = True;
 $d = 42;
 $e = 3.14159265359;
-$c = True;
-$b = null;
+$f = [];
 $g = ["orange", "banana", "apple"];
 $h = [
     "name" => [
@@ -19,12 +20,11 @@ $h = [
     "age" => 18,
     "from" => "Brazil"
 ];
-$f = [];
-
-fdbg($a, $b, $c, $d, $e, $f, $g, $h);
+$i = new Person("Maria", 7);
 ```
 
-<!-- Adicionar imagem -->
+![image](https://github.com/LePampim/FastDbgPHP/assets/71104962/d3ca9e75-a3a8-44a2-bc3e-f581e8c52611)
+
 
 ### Usabilidade
 
