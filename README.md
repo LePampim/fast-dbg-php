@@ -1,6 +1,6 @@
 # FastDbgPHP
 Biblioteca para auxiliar na depuração no PHP.
-Usuário do PHP a mais de uma decada de forma não profissional nunca gostei de usar no nosso velho conhecido `var_dump`, então, resolvemos (Eu e Mocno) brincar um pouco no PHP e criar essa biblioteca para auxiliar na hora da depuração dos códigos.
+Usuário do PHP/HTML a mais de uma decada de forma não profissional nunca gostei de usar no nosso velho conhecido `var_dump`, então, resolvemos (Eu e Mocno) brincar um pouco no PHP e criar essa biblioteca para auxiliar na hora da depuração dos códigos.
 
 ### Exemplo
 ```php
