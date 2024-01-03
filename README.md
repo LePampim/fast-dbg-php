@@ -21,6 +21,8 @@ $h = [
     "from" => "Brazil"
 ];
 $i = new Person("Maria", 7);
+
+$fdbg($a, $b, $c, $d, $e, $f, $g, $h, $i);
 ```
 
 ![image](https://github.com/LePampim/FastDbgPHP/assets/71104962/d3ca9e75-a3a8-44a2-bc3e-f581e8c52611)
