@@ -71,7 +71,7 @@ class FastDbgPHP
         static::$styles = $styles + static::$styles;
     }
 
-    static public function setDefaltValues(array $defaltValues): void
+    static public function setDefaultValues(array $defaltValues): void
     {
         static::$defaltValues = $defaltValues;
     }

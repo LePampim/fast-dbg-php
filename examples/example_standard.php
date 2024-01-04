@@ -11,7 +11,7 @@ FastDbgPHP::setDevelopmentMode($isDev);
 // Optionais configs
 FastDbgPHP::setInicialTime($start_time);
 FastDbgPHP::setProjectName("Project Example");
-FastDbgPHP::setDefaltValues(["##GET", "##POST", "##SERVER"]);
+FastDbgPHP::setDefaultValues(["##GET", "##POST", "##SERVER"]);
 
 class Person
 {

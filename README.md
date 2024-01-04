@@ -135,7 +135,7 @@ Apenas para personalização
 ### setStyles
 Apenas para personalização
 
-### setDefaltValues
+### setDefaultValues
 Pode acrescentar mais agilidade
 
 ### setInicialTime
@@ -143,8 +143,4 @@ Acrescenta utilidade
 
 ### setClassList
 Acrescenta utilidade
--->
-
-<!--
-setDefaltValues -> setDefaultValues
 -->
