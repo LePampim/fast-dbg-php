@@ -76,14 +76,14 @@ fdbg('##GET', '##POST');
 
 #### Controle de tempo: `##TIME`
 
-Para verificar o tempo levado em certo código, ou qualquer outra contagem de tempo, use a palavra chave `##TIME`, que mostra o tempo entre o início da página e o momento da chamada do `fdbg`. Para que essa palavra chave funcione, é essencial que seja definido o tempo em unix do início da página usando a função `FastDbgPHP::setStartTime`, como mostrado no exemplo a seguir:
+Para verificar o tempo levado em certo código, ou qualquer outra contagem de tempo, use a palavra chave `##TIME`, que mostra o tempo entre o início da página e o momento da chamada do `fdbg`. Para que essa palavra chave funcione, é essencial que seja definido o tempo em unix do início da página usando a função `FastDbgPHP::setInicialTime`, como mostrado no exemplo a seguir:
 
 ```php
 // Pegue o tempo inicial de referencia do código, sempre deve ser aferido no começo da página
 $inicial_time = microtime(true);
 
 // Definindo o tempo inicial de referência
-FastDbgPHP::setStartTime($inicial_time);
+FastDbgPHP::setInicialTime($inicial_time);
 
 /* O corpo do seu código */
 
@@ -138,7 +138,7 @@ Apenas para personalização
 ### setDefaltValues
 Pode acrescentar mais agilidade
 
-### setStartTime
+### setInicialTime
 Acrescenta utilidade
 
 ### setClassList
@@ -146,6 +146,5 @@ Acrescenta utilidade
 -->
 
 <!--
-setStartTime -> setInicialTime
 setDefaltValues -> setDefaultValues
 -->

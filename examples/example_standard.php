@@ -9,7 +9,7 @@ require_once "../fastDbgPHP.class.php";
 FastDbgPHP::setDevelopmentMode($isDev);
 
 // Optionais configs
-FastDbgPHP::setStartTime($start_time);
+FastDbgPHP::setInicialTime($start_time);
 FastDbgPHP::setProjectName("Project Example");
 FastDbgPHP::setDefaltValues(["##GET", "##POST", "##SERVER"]);
 

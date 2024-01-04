@@ -76,7 +76,7 @@ class FastDbgPHP
         static::$defaltValues = $defaltValues;
     }
 
-    static public function setStartTime(float $startTime): void
+    static public function setInicialTime(float $startTime): void
     {
         static::$startTime = $startTime;
     }
