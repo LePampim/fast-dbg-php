@@ -141,6 +141,4 @@ Pode acrescentar mais agilidade
 ### setInicialTime
 Acrescenta utilidade
 
-### setClassList
-Acrescenta utilidade
 -->

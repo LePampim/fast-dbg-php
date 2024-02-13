@@ -23,7 +23,8 @@ $h = [
     "age" => 18,
     "from" => "Brazil"
 ];
+$i = new DateTime();
 
-fdbg($a, $b, $c, $d, $e, $f, $g, $h);
+fdbg($a, $b, $c, $d, $e, $f, $g, $h, $i);
 
 fdbg();

@@ -12,6 +12,12 @@ FastDbgPHP::setDevelopmentMode($isDev);
 FastDbgPHP::setInicialTime($start_time);
 FastDbgPHP::setProjectName("Project Example");
 FastDbgPHP::setDefaultValues(["##GET", "##POST", "##SERVER"]);
+FastDbgPHP::setIsExit(false);
+FastDbgPHP::setStyles([
+    "header"    => "color: #404040;
+    font-size: 18px;
+    padding: 0 0 10px;"
+]);
 
 class Person
 {
@@ -20,12 +26,6 @@ class Person
         public string $age
     ) {}
 }
-FastDbgPHP::setClassList(["Person"]);
-FastDbgPHP::setStyles([
-    "header"    => "color: #404040;
-                    font-size: 18px;
-                    padding: 0 0 10px;"
-]);
 
 $a = "Hello Word";
 $b = null;
@@ -43,7 +43,7 @@ $h = [
     "age" => 18,
     "from" => "Brazil"
 ];
-$i = new Person("Maria", 19);
+$i = new Person("Maria", 7);
 
 fdbg($a, $b, $c, $d, $e, $f, $g, $h, $i);
 

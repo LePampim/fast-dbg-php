@@ -10,8 +10,8 @@ class FastDbgPHP
     static private bool $isDevelopementMode = false;
     static private string $projectName = "";
     static private ?float $startTime = null;
+    static private bool $isExit = false;
     static private array $defaltValues = ['##GET', '##POST'];
-    static private array $classList = [];
     static private array $styles = [
         'box'               => 'font-family: ui-monospace, monospace;
                                 color: #363636;
@@ -81,9 +81,9 @@ class FastDbgPHP
         static::$startTime = $startTime;
     }
 
-    static public function setClassList(array $classList): void
+    static public function setIsExit(bool $isExit): void
     {
-        static::$classList = $classList;
+        static::$isExit = $isExit;
     }
 
     /**
@@ -116,7 +116,7 @@ class FastDbgPHP
             echo "<div>🪲 FAST_DBG_PHP: file $file on line line $line</div>";
             echo "</div>";
 
-            $hasexit = false;
+            $hasexit = static::$isExit;
 
             echo '<div style="display: grid; grid-template-columns: 20% 80%;">';
             foreach ($values as $value) {
@@ -164,10 +164,15 @@ class FastDbgPHP
                 }
             }
 
-            $LePampim = '<a href ="https://github.com/LePampim" >LePampim</a>';
-            $Mocno = '<a href ="https://github.com/mocno" >Mocno</a>';
-            $fastDbgPHP = '<a href ="https://github.com/LePampim/FastdbgPHP" >Fast Debug PHP</a>';
-            static::generateRowCredit("$fastDbgPHP developed by $LePampim and $Mocno");
+            $LePampim = '<a href ="https://github.com/LePampim">LePampim</a>';
+            $Mocno = '<a href ="https://github.com/mocno">Mocno</a>';
+            $fastDbgPHP = '<a href ="https://github.com/LePampim/FastdbgPHP">Fast Debug PHP</a>';
+
+            $creditMsg = "$fastDbgPHP developed by $LePampim and $Mocno";
+            if($hasexit)
+                $creditMsg = "[❌ exited] $creditMsg";
+
+            static::generateRowCredit($creditMsg);
 
             echo "</div>";
             echo '</div>';
@@ -186,16 +191,6 @@ class FastDbgPHP
         echo '<div style="' . static::$styles['info'] . "\">$info</div>";
         echo '<div style="' . static::$styles['description'] . '">';
 
-        foreach (static::$classList as $value) {
-            if (is_a($description, $value)) {
-                if ($description) {
-                    static::generateArrayTable((array) $description);
-                    echo '</div>';
-                    return;
-                }
-            }
-        }
-
         if (is_string($description)) {
             static::generateSimpleTable($description);
         } elseif (is_array($description)) {
@@ -203,7 +198,9 @@ class FastDbgPHP
                 static::generateArrayTable((array) $description);
             } else
                 static::generateSimpleTable("<i>Empty</i>");
-        } else
+        } elseif (is_object($description))
+            static::generateArrayTable((array) $description);
+        else 
             static::generateSimpleTable($description);
 
         echo '</div>';
@@ -249,7 +246,7 @@ class FastDbgPHP
                     else
                         echo '<div style="' . static::$styles['arrays'] . "\"></div>";
                 } elseif (is_object($value)) {
-                    echo '<div style="' . static::$styles['arrays'] . "\"><i>isObject</i></div>";
+                    static::generateArrayTable((array) $value);
                 } else {
                     echo '<div style="' . static::$styles['arrays'] . "\">$value</div>";
                 }
