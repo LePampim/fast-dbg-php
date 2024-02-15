@@ -7,12 +7,14 @@ function fdbg(mixed ...$values)
 
 class FastDbgPHP
 {
-    static private bool $isDevelopementMode = false;
-    static private string $projectName = "";
-    static private ?float $startTime = null;
-    static private bool $isExit = false;
-    static private array $defaltValues = ['##GET', '##POST'];
-    static private array $styles = [
+    static private bool     $isDevelopementMode = false;
+    static private string   $projectName = "";
+    static private ?float   $startTime = null;
+    static private bool     $isExit = false;
+    static private bool     $clickToCopy = true;
+    static private int      $buttomId = 0;
+    static private array    $defaltValues = ['##GET', '##POST'];
+    static private array    $styles = [
         'box'               => 'font-family: ui-monospace, monospace;
                                 color: #363636;
                                 background-color: #F6F8FC;
@@ -22,7 +24,7 @@ class FastDbgPHP
                                 padding: 10px 0px 15px 15px;
                                 margin: 10px 4px;',
         'header'            => 'color: #363636;
-                                font-size: 18px;
+                                font-size: 16px;
                                 padding: 0 0 10px;',
         'titles'            => 'color: #363636;
                                 border: 1px solid #DCDCDC;
@@ -36,13 +38,22 @@ class FastDbgPHP
                                 font-size: 12px;
                                 text-align: left;
                                 padding: 5px 10px;
-                                word-break: break-word;',
+                                word-break: break-word;
+                                cursor: pointer;',
         'descriptionCredit' => 'border-top: 1px solid #DCDCDC;
                                 font-size: 12px;
                                 text-align: right;
                                 padding: 5px 10px;
                                 word-break: break-word;',
         'arrays'            => 'border: 1px solid #DCDCDC;
+                                border-radius: 5px;
+                                background-color: #EEE;
+                                font-size: 12px;
+                                text-align: left;
+                                padding: 5px 10px;
+                                margin: 1px;
+                                word-break: break-word;',
+        'descriptionArrays'     => 'border: 1px solid #DCDCDC;
                                 border-radius: 5px;
                                 background-color: #FFF;
                                 font-size: 12px;
@@ -86,6 +97,12 @@ class FastDbgPHP
         static::$isExit = $isExit;
     }
 
+    static public function setclickToCopy(bool $clickToCopy): void
+    {
+        static::$clickToCopy = $clickToCopy;
+    }
+
+
     /**
      * Function of the Debug
      *
@@ -102,6 +119,8 @@ class FastDbgPHP
                 self::fdbg(...static::$defaltValues);
                 return;
             }
+            
+            static::scriptCopyText();
 
             $debug_arr = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             $debug_arr = end($debug_arr);
@@ -118,7 +137,7 @@ class FastDbgPHP
 
             $hasexit = static::$isExit;
 
-            echo '<div style="display: grid; grid-template-columns: 20% 80%;">';
+            echo '<div style="display: grid; grid-template-columns: 30% 70%;">';
             foreach ($values as $value) {
                 if (is_null($value)) {
                     $type = get_debug_type($value);
@@ -168,9 +187,13 @@ class FastDbgPHP
             $Mocno = '<a href ="https://github.com/mocno">Mocno</a>';
             $fastDbgPHP = '<a href ="https://github.com/LePampim/FastdbgPHP">Fast Debug PHP</a>';
 
-            $creditMsg = "$fastDbgPHP developed by $LePampim and $Mocno";
+            
+            
+            $creditMsg = "$fastDbgPHP developed by $LePampim and $Mocno. ";
             if($hasexit)
-                $creditMsg = "[❌ exited] $creditMsg";
+                $creditMsg .= "[❌ exited] ";
+            if (static::$clickToCopy)
+                $creditMsg .= "[📑 click to copy] ";
 
             static::generateRowCredit($creditMsg);
 
@@ -188,7 +211,7 @@ class FastDbgPHP
         elseif (is_array($description))
             $info .= " [" . count($description) . "]";
 
-        echo '<div style="' . static::$styles['info'] . "\">$info</div>";
+        echo '<div style="' . static::$styles['info'] . '">'.$info.'</div>';
         echo '<div style="' . static::$styles['description'] . '">';
 
         if (is_string($description)) {
@@ -208,50 +231,79 @@ class FastDbgPHP
 
     static private function generateRow(string $info, mixed $description)
     {
-        echo '<div style="' . static::$styles['info'] . "\">$info</div>";
+        static::generateContent($info, static::$styles['info']);
         echo '<div style="' . static::$styles['description'] . '">';
         static::generateSimpleTable($description);
         echo '</div>';
     }
     static private function generateTracebackRow(string $info)
     {
-        echo '<div style="' . static::$styles['info'] . "\">$info</div>";
+        static::generateContent($info, static::$styles['info']);
         echo '<div style="' . static::$styles['description'] . '">';
-        echo '<div style="' . static::$styles['arrays'] . "\"><pre>";
+        echo '<div style="' . static::$styles['descriptionArrays'] . "\"><pre>";
         debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         echo '</pre></div></div>';
     }
     static private function generateRowCredit(mixed $description)
     {
-        echo '<div style="' . static::$styles['info'] . "\"></div>";
-        echo '<div style="' . static::$styles['descriptionCredit'] . '">' . $description . '</div>';;
+        static::generateContent("", static::$styles['info']);
+        static::generateContent($description, static::$styles['descriptionCredit']);
     }
 
     static private function generateSimpleTable($value)
     {
-        echo '<div style="' . static::$styles['arrays'] . "\">$value</div>";
+        static::generateContent($value, static::$styles['descriptionArrays'], true);
     }
 
     static private function generateArrayTable(array $arrays)
     {
         echo '<div style="display: grid; grid-template-columns: 20% 80%;">';
         foreach ($arrays as $key => $value) {
-            echo '<div style="' . static::$styles['arrays'] . "\">$key</div>";
+            static::generateContent($key, static::$styles['arrays'], true);
             if (is_string($value))
-                echo '<div style="' . static::$styles['arrays'] . "\">$value</div>";
+                static::generateContent($value, static::$styles['descriptionArrays'], true);
             else {
                 if (is_array($value)) {
                     if ($value)
                         static::generateArrayTable((array) $value);
                     else
-                        echo '<div style="' . static::$styles['arrays'] . "\"></div>";
+                        static::generateContent("", static::$styles['descriptionArrays'], true);
                 } elseif (is_object($value)) {
                     static::generateArrayTable((array) $value);
                 } else {
-                    echo '<div style="' . static::$styles['arrays'] . "\">$value</div>";
+                    static::generateContent($value, static::$styles['descriptionArrays'], true);
                 }
             }
         }
         echo '</div>';
+    }
+
+    static private function generateContent(string $value, string $style, bool $copy = false) {
+        if ($copy and static::$clickToCopy) {
+            $id = 'idCopy'.static::$buttomId += 1;
+            echo '<div title="click to copy." style="' . $style . "\" name=\"$id\" id='$id' onclick=\"copyTextFdbg(this.id)\" >$value</div>";
+        } else
+            echo '<div style="' . $style . "\"\" >$value</div>";
+    }
+
+    static private function scriptCopyText (){
+        echo "
+        <script type=\"text/javascript\">
+        function copyTextFdbg(copyId) {
+            var textCopy = document.getElementById(copyId);
+            var tmpFdbg = document.createElement('input');
+            tmpFdbg.value = textCopy.textContent
+            textCopy.appendChild(tmpFdbg);
+            tmpFdbg.select();
+            tmpFdbg.setSelectionRange(0, 99999);
+            document.execCommand(\"copy\");
+            tmpFdbg.remove();
+        }
+      </script>";
+    }
+    static private function CSSSSSSS (){
+        echo "<style>
+            .fdbg-
+      </style>";
     }
 }
