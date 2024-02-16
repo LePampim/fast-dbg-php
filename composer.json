@@ -3,6 +3,7 @@
     "type": "library",
     "description": "Library for debugging PHP pages simply and quickly in an HTML environment",
     "homepage": "https://github.com/LePampim/fast-dbg-php",
+    "keywords": ["debug", "dump", "var_dump"],
     "authors": [
         {
             "name": "Reinaldo Correa",
