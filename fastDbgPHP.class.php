@@ -65,6 +65,7 @@ class FastDbgPHP
                                 font-size: 10px;
                                 font-style: italic;
                                 text-align: right;
+                                font-weight: bold;
                                 word-break: break-word;'
     ];
 
@@ -285,10 +286,11 @@ class FastDbgPHP
 
         if ($copy and static::$clickToCopy)
         {
-            $id = 'idCopy'.static::$buttomId += 1;
-            echo "<div title='click to copy.' name=\"$id\" id='$id' onclick=\"copyTextFdbg(this.id)\">$value</div>";
+            static::$buttomId += 1;
+            $id = 'idCopy' . static::$buttomId;
+            echo "<pre title='click to copy.' style='margin: 0;' name=\"$id\" id='$id' onclick=\"copyTextFdbg(this.id)\">$value</pre>";
         } else 
-            echo '<div style="' . $style . "\">$value</div>";
+            echo '<pre style="' . $style . "\">$value</pre>";
 
         if (trim($value) != $value and $style != static::$styles['descriptionCredit'])
             echo '<div title="blank spaces at the beginning or end. ['.strlen(trim($value)).'/'.strlen($value).']" >🟧</div>';
@@ -309,7 +311,7 @@ class FastDbgPHP
         function copyTextFdbg(copyId) {
             var textCopy = document.getElementById(copyId);
             var tmpFdbg = document.createElement('input');
-            tmpFdbg.value = textCopy.textContent
+            tmpFdbg.value = textCopy.textContent;
             textCopy.appendChild(tmpFdbg);
             tmpFdbg.select();
             tmpFdbg.setSelectionRange(0, 99999);
