@@ -14,9 +14,9 @@
     ],
     "license": "MIT",
     "autoload": {
-        "files": [
-            "fastDbgPHP.class.php"
-        ]
+        "psr-4": {
+            "": "src"
+        }
     },
     "require": {
         "php": ">=8.0"
