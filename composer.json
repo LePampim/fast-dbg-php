@@ -13,6 +13,11 @@
         }
     ],
     "license": "MIT",
+    "autoload": {
+        "classmap": [
+            "fastDbgPHP.class.php"
+        ]
+    },
     "require": {
         "php": ">=8.0"
     }
