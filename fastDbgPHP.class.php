@@ -138,7 +138,7 @@ class FastDbgPHP
             if (static::$projectName) {
                 echo "<div>💼 Project: " . static::$projectName . "</div>";
             }
-            echo "<div>🪲 FAST_DBG_PHP: file $file on line line $line</div>";
+            echo "<div>🪲 FAST-DBG-PHP: file $file on line line $line</div>";
             echo "</div>";
 
             $hasexit = static::$isExit;
@@ -193,7 +193,7 @@ class FastDbgPHP
 
             $LePampim = '<a href ="https://github.com/LePampim">LePampim</a>';
             $Mocno = '<a href ="https://github.com/mocno">Mocno</a>';
-            $fastDbgPHP = '<a href ="https://github.com/LePampim/FastdbgPHP">Fast Debug PHP</a>';
+            $fastDbgPHP = '<a href ="https://github.com/LePampim/fast-dbg-php">Fast Debug PHP</a>';
 
             $creditMsg = "$fastDbgPHP developed by $LePampim and $Mocno. ";
             if($hasexit)
