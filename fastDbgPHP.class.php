@@ -45,7 +45,7 @@ class FastDbgPHP
                                 text-align: right;
                                 padding: 5px 10px;
                                 word-break: break-word;',
-        'arrays'            => 'border: 1px solid #DCDCDC;
+        'arraysKey'             => 'border: 1px solid #DCDCDC;
                                 border-radius: 5px;
                                 background-color: #EEE;
                                 font-size: 12px;
@@ -60,6 +60,11 @@ class FastDbgPHP
                                 text-align: left;
                                 padding: 5px 10px;
                                 margin: 1px;
+                                word-break: break-word;', 
+        'ArrayDetails'          => 'color: #707070;
+                                font-size: 10px;
+                                font-style: italic;
+                                text-align: right;
                                 word-break: break-word;'
     ];
 
@@ -108,7 +113,7 @@ class FastDbgPHP
      *
      * @param mixed ... $values
      * ##TRACE - Show traceback
-     * ##GET, ##POST, ##SERVER, ##FILES, ##COOKIE, ##SESSION, ##REQUEST, ##ENV - Show global var
+     * ##GET, ##POST, ##SERVER, ##FILES, ##COOKIE, ##SESSION, ##REQUEST, ##ENV, ##GETENV - Show global var
      * ##EXIT - Finish the code
      * ##TIME
      */
@@ -137,7 +142,7 @@ class FastDbgPHP
 
             $hasexit = static::$isExit;
 
-            echo '<div style="display: grid; grid-template-columns: 30% 70%;">';
+            echo '<div style="display: grid; grid-template-columns: 25% 75%;">';
             foreach ($values as $value) {
                 if (is_null($value)) {
                     $type = get_debug_type($value);
@@ -173,6 +178,8 @@ class FastDbgPHP
                     }
                 } elseif ($value == "##REQUEST") {
                     static::generateDetailRow("🔗 Requests", $_REQUEST);
+                } elseif ($value == "##GETENV") {
+                    static::generateDetailRow("🔗 Getenv", getenv());
                 } elseif ($value == "##ENV") {
                     static::generateDetailRow("🏠 Environment", $_ENV);
                 } elseif ($value == "##EXIT") {
@@ -187,17 +194,17 @@ class FastDbgPHP
             $Mocno = '<a href ="https://github.com/mocno">Mocno</a>';
             $fastDbgPHP = '<a href ="https://github.com/LePampim/FastdbgPHP">Fast Debug PHP</a>';
 
-            
-            
             $creditMsg = "$fastDbgPHP developed by $LePampim and $Mocno. ";
             if($hasexit)
                 $creditMsg .= "[❌ exited] ";
             if (static::$clickToCopy)
                 $creditMsg .= "[📑 click to copy] ";
 
-            static::generateRowCredit($creditMsg);
+            echo '<div style="' . static::$styles['info'] . '"></div>';
+            echo '<div style="' . static::$styles['descriptionCredit'] . '">'.$creditMsg.'</div>';
 
             echo "</div>";
+
             echo '</div>';
 
             if ($hasexit) exit;
@@ -206,84 +213,94 @@ class FastDbgPHP
 
     static private function generateDetailRow(string $info, mixed $description)
     {
-        if (is_string($description))
-            $info .= " [" . strlen($description) . "]";
-        elseif (is_array($description))
+        if (is_array($description))
             $info .= " [" . count($description) . "]";
 
         echo '<div style="' . static::$styles['info'] . '">'.$info.'</div>';
         echo '<div style="' . static::$styles['description'] . '">';
 
         if (is_string($description)) {
-            static::generateSimpleTable($description);
+            static::generateContent($description, static::$styles['descriptionArrays'], true, true);
         } elseif (is_array($description)) {
             if ($description) {
                 static::generateArrayTable((array) $description);
             } else
-                static::generateSimpleTable("<i>Empty</i>");
+                static::generateContent("<i>Empty</i>", static::$styles['descriptionArrays'], true, false);
         } elseif (is_object($description))
             static::generateArrayTable((array) $description);
         else 
-            static::generateSimpleTable($description);
+            static::generateContent($description, static::$styles['descriptionArrays'], true);
 
         echo '</div>';
-    }
-
-    static private function generateRow(string $info, mixed $description)
-    {
-        static::generateContent($info, static::$styles['info']);
-        echo '<div style="' . static::$styles['description'] . '">';
-        static::generateSimpleTable($description);
-        echo '</div>';
-    }
-    static private function generateTracebackRow(string $info)
-    {
-        static::generateContent($info, static::$styles['info']);
-        echo '<div style="' . static::$styles['description'] . '">';
-        echo '<div style="' . static::$styles['descriptionArrays'] . "\"><pre>";
-        debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        echo '</pre></div></div>';
-    }
-    static private function generateRowCredit(mixed $description)
-    {
-        static::generateContent("", static::$styles['info']);
-        static::generateContent($description, static::$styles['descriptionCredit']);
-    }
-
-    static private function generateSimpleTable($value)
-    {
-        static::generateContent($value, static::$styles['descriptionArrays'], true);
     }
 
     static private function generateArrayTable(array $arrays)
     {
         echo '<div style="display: grid; grid-template-columns: 20% 80%;">';
         foreach ($arrays as $key => $value) {
-            static::generateContent($key, static::$styles['arrays'], true);
+            static::generateContent($key, static::$styles['arraysKey'], true);
             if (is_string($value))
-                static::generateContent($value, static::$styles['descriptionArrays'], true);
+                static::generateContent($value, static::$styles['descriptionArrays'], true, true);
             else {
                 if (is_array($value)) {
                     if ($value)
                         static::generateArrayTable((array) $value);
                     else
-                        static::generateContent("", static::$styles['descriptionArrays'], true);
+                        static::generateContent("", static::$styles['descriptionArrays'], true, true);
                 } elseif (is_object($value)) {
                     static::generateArrayTable((array) $value);
                 } else {
-                    static::generateContent($value, static::$styles['descriptionArrays'], true);
+                    static::generateContent($value, static::$styles['descriptionArrays'], true, true);
                 }
             }
         }
         echo '</div>';
     }
 
-    static private function generateContent(string $value, string $style, bool $copy = false) {
-        if ($copy and static::$clickToCopy) {
+    static private function generateRow(string $info, mixed $description)
+    {
+        echo '<div style="' . static::$styles['info'] . '">'.$info.'</div>';
+        echo '<div style="' . static::$styles['description'] . '">';
+        static::generateContent($description, static::$styles['descriptionArrays'], true);
+        echo '</div>';
+    }
+    
+    static private function generateTracebackRow(string $info)
+    {
+        static::generateContent($info, static::$styles['info'], false);
+        echo '<div style="' . static::$styles['description'] . '">';
+        echo '<div style="' . static::$styles['descriptionArrays'] . "\"><pre>";
+        debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        echo '</pre></div></div>';
+    }
+
+    static private function generateContent(string $value, string $style, bool $copy = false, bool $len = false) {
+
+        if (trim($value) != $value)
+            $column = "20px";
+        else 
+            $column = "";
+
+        echo "<div style=\"display: grid; grid-template-columns: auto $column 30px; $style;\">";
+
+        if ($copy and static::$clickToCopy)
+        {
             $id = 'idCopy'.static::$buttomId += 1;
-            echo '<div title="click to copy." style="' . $style . "\" name=\"$id\" id='$id' onclick=\"copyTextFdbg(this.id)\" >$value</div>";
-        } else
-            echo '<div style="' . $style . "\"\" >$value</div>";
+            echo "<div title='click to copy.' name=\"$id\" id='$id' onclick=\"copyTextFdbg(this.id)\">$value</div>";
+        } else 
+            echo '<div style="' . $style . "\">$value</div>";
+
+        if (trim($value) != $value and $style != static::$styles['descriptionCredit'])
+            echo '<div title="blank spaces at the beginning or end. ['.strlen(trim($value)).'/'.strlen($value).']" >🟧</div>';
+
+        if ($len)
+            echo '<div title="leng." style="' . static::$styles['ArrayDetails'] .'">'.strlen($value).'</div>';
+        else 
+            echo '<div></div>';
+
+        echo '</div>';
+
+
     }
 
     static private function scriptCopyText (){
@@ -301,9 +318,5 @@ class FastDbgPHP
         }
       </script>";
     }
-    static private function CSSSSSSS (){
-        echo "<style>
-            .fdbg-
-      </style>";
-    }
+
 }

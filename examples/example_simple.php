@@ -2,7 +2,7 @@
 
 $isDev = true;
 
-require_once "../fastDbgPHP.class.php";
+require_once "./fastDbgPHP.class.php";
 
 // FastDbgPHP Configuration
 FastDbgPHP::setDevelopmentMode($isDev);
@@ -23,8 +23,6 @@ $h = [
     "age" => 18,
     "from" => "Brazil"
 ];
-$i = new DateTime();
 
-fdbg($a, $b, $c, $d, $e, $f, $g, $h, $i);
+fdbg($a, $b, $c, $d, $e, $f, $g, $h);
 
-fdbg();

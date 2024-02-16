@@ -3,7 +3,7 @@
 $start_time = microtime(true);
 $isDev = true;
 
-require_once "../fastDbgPHP.class.php";
+require_once "./fastDbgPHP.class.php";
 
 // FastDbgPHP Configuration
 FastDbgPHP::setDevelopmentMode($isDev);
@@ -12,7 +12,8 @@ FastDbgPHP::setDevelopmentMode($isDev);
 FastDbgPHP::setInicialTime($start_time);
 FastDbgPHP::setProjectName("Project Example");
 FastDbgPHP::setDefaultValues(["##GET", "##POST", "##SERVER"]);
-FastDbgPHP::setIsExit(false);
+FastDbgPHP::setIsExit(true);
+// FastDbgPHP::setclickToCopy(false);
 FastDbgPHP::setStyles([
     "header"    => "color: #404040;
     font-size: 18px;
@@ -44,8 +45,10 @@ $h = [
     "from" => "Brazil"
 ];
 $i = new Person("Maria", 7);
+$j = new DateTime();
+$k = " Espaços em branco antes e depois  ";
 
-fdbg($a, $b, $c, $d, $e, $f, $g, $h, $i);
-
+fdbg($a, $b, $c, $d, $e, $f, $g, $h, $i, $j, $k);
+fdbg('##GETENV'); 
 fdbg();
 
