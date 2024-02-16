@@ -14,7 +14,7 @@
     ],
     "license": "MIT",
     "autoload": {
-        "classmap": [
+        "files": [
             "fastDbgPHP.class.php"
         ]
     },
