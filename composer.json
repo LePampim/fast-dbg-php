@@ -1,0 +1,19 @@
+{
+    "name": "LePampim/fastDbgPHP",
+    "type": "library",
+    "description": "Library for debugging PHP pages simply and quickly in an HTML environment",
+    "homepage": "https://github.com/LePampim/FastDbgPHP",
+    "authors": [
+        {
+            "name": "Reinaldo Correa",
+            "email": "reinnnn@gmail.com",
+            "homepage": "https://github.com/LePampim",
+            "role": "Accountant"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0",
+        "another-vendor/package": "1.*"
+    }
+}
