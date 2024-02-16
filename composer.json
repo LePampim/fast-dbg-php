@@ -1,8 +1,8 @@
 {
-    "name": "LePampim/fastDbgPHP",
+    "name": "LePampim/fast-dbg-php",
     "type": "library",
     "description": "Library for debugging PHP pages simply and quickly in an HTML environment",
-    "homepage": "https://github.com/LePampim/FastDbgPHP",
+    "homepage": "https://github.com/LePampim/fast-dbg-php",
     "authors": [
         {
             "name": "Reinaldo Correa",
