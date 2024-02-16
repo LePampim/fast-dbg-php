@@ -1,4 +1,4 @@
-# FastDbgPHP
+# Fast-Dbg-PHP
 Biblioteca para depuração de páginas PHP de forma simples e rápida em ambiente HTML. Um dos principais motivos para criação deste projeto é a simplificação no momento da depuração, sem perder a possibilidade da personalização.
 
 ```php
