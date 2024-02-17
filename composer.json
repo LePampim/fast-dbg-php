@@ -15,7 +15,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "fastDbgPHP.class.php": "src"
+            "LePampim\\FastDbgPHP\\": "src/"
         }
     },
     "require": {
