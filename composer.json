@@ -1,24 +1,20 @@
 {
     "name": "lepampim/fast-dbg-php",
-    "type": "library",
+    "type": "project",
     "description": "Library for debugging PHP pages simply and quickly in an HTML environment",
     "homepage": "https://github.com/LePampim/fast-dbg-php",
     "keywords": ["debug", "dump", "var_dump"],
-    "authors": [
-        {
-            "name": "Reinaldo Correa",
-            "email": "reinnnn@gmail.com",
-            "homepage": "https://github.com/LePampim",
-            "role": "Accountant"
-        }
-    ],
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "LePampim\\FastDbgPHP\\": "src/"
+            "Lepampim\\FastDbgPhp\\": "src/"
         }
     },
-    "require": {
-        "php": ">=8.0"
-    }
+    "authors": [
+        {
+            "name": "LePampim",
+            "email": "reinnnn@gmail.com"
+        }
+    ],
+    "require": {}
 }
