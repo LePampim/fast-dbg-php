@@ -1,9 +1,13 @@
 <?php
 
+use LePampim\FastDbgPHP\FastDbgPHP;
+
+use function LePampim\FastDbgPHP\fdbg;
+
 $start_time = microtime(true);
 $isDev = true;
 
-require_once "./fastDbgPHP.class.php";
+require_once "../src/fastDbgPHP.class.php";
 
 // FastDbgPHP Configuration
 FastDbgPHP::setDevelopmentMode($isDev);

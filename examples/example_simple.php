@@ -1,8 +1,12 @@
 <?php
 
+use LePampim\FastDbgPHP\FastDbgPHP;
+
+use function LePampim\FastDbgPHP\fdbg;
+
 $isDev = true;
 
-require_once "./fastDbgPHP.class.php";
+require_once "../src/fastDbgPHP.class.php";
 
 // FastDbgPHP Configuration
 FastDbgPHP::setDevelopmentMode($isDev);

@@ -1,5 +1,7 @@
 <?php
 
+namespace LePampim\FastDbgPHP;
+
 function fdbg(mixed ...$values)
 {
     FastDbgPHP::fdbg(...$values);
