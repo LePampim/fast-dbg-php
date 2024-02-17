@@ -1,5 +1,5 @@
 {
-    "name": "lepampim/fast-dbg-php",
+    "name": "lepampim/fastdbgphp",
     "type": "project",
     "description": "Library for debugging PHP pages simply and quickly in an HTML environment",
     "homepage": "https://github.com/LePampim/fast-dbg-php",
@@ -7,7 +7,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Lepampim\\FastDbgPhp\\": "src/"
+            "Lepampim\\fastdbgphp\\": "src/"
         }
     },
     "authors": [
