@@ -1,13 +1,13 @@
 <?php
 
-namespace LePampim\fastdbgphp;
+namespace LePampim\FastDbgPHP;
 
 function fdbg(mixed ...$values)
 {
-    fastdbgphp::fdbg(...$values);
+    FastDbgPHP::fdbg(...$values);
 }
 
-class fastdbgphp
+class FastDbgPHP
 {
     static private bool     $isDevelopementMode = false;
     static private string   $projectName = "";
@@ -195,9 +195,9 @@ class fastdbgphp
 
             $LePampim = '<a href ="https://github.com/LePampim">LePampim</a>';
             $Mocno = '<a href ="https://github.com/mocno">Mocno</a>';
-            $fastdbgphp = '<a href ="https://github.com/LePampim/fast-dbg-php">Fast Debug PHP</a>';
+            $FastDbgPHP = '<a href ="https://github.com/LePampim/fast-dbg-php">Fast Debug PHP</a>';
 
-            $creditMsg = "$fastdbgphp developed by $LePampim and $Mocno. ";
+            $creditMsg = "$FastDbgPHP developed by $LePampim and $Mocno. ";
             if($hasexit)
                 $creditMsg .= "[❌ exited] ";
             if (static::$clickToCopy)

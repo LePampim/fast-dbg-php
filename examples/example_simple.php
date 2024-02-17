@@ -1,15 +1,13 @@
 <?php
 
-use LePampim\fastdbgphp\fastdbgphp;
+use LePampim\FastDbgPHP\FastDbgPHP;
 
-use function LePampim\fastdbgphp\fdbg;
+require_once "../src/fastdbgphp.php";
 
 $isDev = true;
 
-require_once "../src/fastdbgphp.class.php";
-
-// fastdbgphp Configuration
-fastdbgphp::setDevelopmentMode($isDev);
+// FastDbgPHP Configuration
+FastDbgPHP::setDevelopmentMode($isDev);
 
 $a = "Hello Word";
 $b = null;

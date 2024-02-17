@@ -1,24 +1,22 @@
 <?php
 
-use LePampim\fastdbgphp\fastdbgphp;
+use LePampim\FastDbgPHP\FastDbgPHP;
 
-use function LePampim\fastdbgphp\fdbg;
+require_once "../src/fastdbgphp.php";
 
 $start_time = microtime(true);
 $isDev = true;
 
-require_once "../src/fastdbgphp.php";
-
 // fastdbgphp Configuration
-fastdbgphp::setDevelopmentMode($isDev);
+FastDbgPHP::setDevelopmentMode($isDev);
 
 // Optionais configs
-fastdbgphp::setInicialTime($start_time);
-fastdbgphp::setProjectName("Project Example");
-fastdbgphp::setDefaultValues(["##GET", "##POST", "##SERVER"]);
-fastdbgphp::setIsExit(true);
-// fastdbgphp::setclickToCopy(false);
-fastdbgphp::setStyles([
+FastDbgPHP::setInicialTime($start_time);
+FastDbgPHP::setProjectName("Project Example");
+FastDbgPHP::setDefaultValues(["##GET", "##POST", "##SERVER"]);
+FastDbgPHP::setIsExit(true);
+// FastDbgPHP::setclickToCopy(false);
+FastDbgPHP::setStyles([
     "header"    => "color: #404040;
     font-size: 18px;
     padding: 0 0 10px;"
